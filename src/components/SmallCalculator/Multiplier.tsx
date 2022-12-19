@@ -1,32 +1,29 @@
 import { Box, Center, HStack, Input, Tag } from "@chakra-ui/react";
 import * as React from "react";
+import { useEffect, useState, FC, ChangeEvent } from "react";
 
-const Multiply: React.FC = () => {
-  const [value, setValue] = React.useState(0);
-  const [value2, setValue2] = React.useState(0);
-  const [result, setResult] = React.useState(0);
-
- const handleValueChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  setValue(Number(event.target.value));
-  handleResultChange();
+type Numbers = {
+  n1: number;
+  n2: number;
 };
 
-const handleValue2Change = (event: React.ChangeEvent<HTMLInputElement>) => {
-  setValue2(Number(event.target.value));
-  handleResultChange();
-};
+const Multiply: FC = () => {
+  const [numbers, setNumbers] = useState<Numbers>({
+    n1: 0,
+    n2: 0,
+  });
 
-  const handleResultChange = () => {
-    const result = multiply(value, value2);
-    setResult(result);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const parsedNumber = Number(e.target?.value);
+
+    setNumbers({
+      ...numbers,
+      [e.target?.name]: parsedNumber,
+    });
   };
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
-    throw new Error("Function not implemented.");
-  }
-
   return (
-    <Center marginTop={'15%'}>
+    <Center marginTop={"15%"}>
       <HStack>
         <Tag>Enter a number:</Tag>
         <Box>
@@ -35,21 +32,25 @@ const handleValue2Change = (event: React.ChangeEvent<HTMLInputElement>) => {
             max={20}
             type="number"
             id="input"
-            value={value}
-            onChange={handleValueChange}
+            name={"n1"}
+            value={numbers?.n1}
+            onChange={handleChange}
             borderWidth={"3px"}
             borderColor={"black"}
           />
         </Box>
-        <Box fontWeight={'bold'} fontSize={'25px'} >*</Box>
+        <Box fontWeight={"bold"} fontSize={"25px"}>
+          *
+        </Box>
         <Box>
           <Input
             min={10}
             max={20}
             type="number"
             id="input2"
-            value={value2}
-            onChange={handleValue2Change}
+            name={"n2"}
+            value={numbers?.n2}
+            onChange={handleChange}
             borderWidth={"3px"}
             borderColor={"black"}
           />
@@ -63,7 +64,7 @@ const handleValue2Change = (event: React.ChangeEvent<HTMLInputElement>) => {
           borderWidth={"3px"}
           borderColor={"black"}
         >
-          <Center>{result}</Center>
+          <Center>{multiply(numbers.n1, numbers.n2)}</Center>
         </Box>
       </HStack>
     </Center>
