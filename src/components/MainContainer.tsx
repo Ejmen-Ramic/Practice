@@ -1,13 +1,10 @@
-import { extendTheme} from "@chakra-ui/react";
+import { extendTheme } from "@chakra-ui/react";
 import App from "./AutoResizer";
 import AutoResizer from "./AutoResizer";
 import MainColorBox from "./ColorBox";
 import Calculator from "./SmallCalculator";
 import Web from "./Web_Layout";
 import Multiplier from "./SmallCalculator/Multiplier";
-
-
-
 
 const breakpoints = {
   sm: "30em",
@@ -22,9 +19,7 @@ export const theme = extendTheme({
 });
 
 const MainContainer = () => {
-  return (
-    <Multiplier/>
-  );
+  return <Multiplier />;
 };
 
 export default MainContainer;
