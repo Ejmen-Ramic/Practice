@@ -8,23 +8,35 @@ type ResultCardProps = {
   restartQuiz: () => void;
 };
 
+const Results = {
+  Good:{ 
+    title: 'You are a car expert!!', 
+    description: 'You have got the best answers! Based on your answers, our system detected that you are a car expert!!'
+  },
+  Bad:{
+  title: 'You are a bad driver!!',
+  description: 'You have got the worst answers! Based on your answers, our system detected that you are a bad driver!!'
+
+  }
+}
+
 const ResultCard: React.FC<ResultCardProps> = ({
   correct,
   total,
   restartQuiz,
 }) => {
+  const result = correct > 4? Results.Good : Results.Bad 
   return (
     <VStack h={"230px"}>
       <ProgressBar current={total} total={total} />
       <HStack>
         <Box fontSize={"25px"} fontWeight={"600"} color={"#20252f"}>
-          You are a car expert!!
+       {result.title}   
         </Box>
       </HStack>
       <HStack>
         <Box>
-          You have got the best answer! Based on your answers, our system
-          detected that you are a car expert!!
+          {result.description}
         </Box>
       </HStack>
       <Divider />
